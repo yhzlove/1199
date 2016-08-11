@@ -7,6 +7,15 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>Tomcat Maven Webapp</name>
   <url>http://maven.apache.org</url>
+  
+  <properties>  
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <spring.version>4.1.4.RELEASE</spring.version>
+      <druid.version>1.0.24</druid.version>
+      <jdk.version>1.7</jdk.version>
+      <mysql.version>5.1.26</mysql.version>
+  </properties>  
+  
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -14,7 +23,49 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    
+    <!-- 添加Spring依赖 -->  
+    <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+     	
+     	<!-- com.alibaba  druid -->
+     	<dependency>
+		    <groupId>com.alibaba</groupId>
+		    <artifactId>druid</artifactId>
+		    <version>${druid.version}</version>
+		</dependency>
+     	<!-- mysql -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>${mysql.version}</version>
+		</dependency>
   </dependencies>
+  
+  
   <build>
     <finalName>Tomcat</finalName>
   </build>
