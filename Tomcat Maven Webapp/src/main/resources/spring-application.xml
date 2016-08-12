@@ -16,28 +16,32 @@
      default-lazy-init="false"> 
  
 
-	
-<!-- <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer" > -->
-<!--        <property name ="locations"> -->
-<!--            <list> -->
-<!--             <value>classpath:jdbc.properties</value> -->
-<!--            </list> -->
-<!--        </property> -->
-<!--        <property name="ignoreUnresolvablePlaceholders" value="true" /> -->
-<!-- </bean> -->
+	  <!-- 引入dbconfig.properties属性文件 -->
+<!--     <context:property-placeholder location="classpath:dbconfig.properties" /> -->
+    <!-- 自动扫描(自动注入)，扫描me.gacl.service这个包以及它的子包的所有使用@Service注解标注的类 -->
+<!--     <context:component-scan base-package="me.gacl.service" /> -->
+<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	<property name="locations">
+		<list>
+			<value>classpath:jdbc.properties</value>
+		</list>
+	</property>
+<!-- 	<property name="ignoreUnresolvablePlaceholders" value="true" /> -->
+</bean>
 
 <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">   
     
     <!-- 基本属性 url、user、password --> 
-    <property name="url" value="jdbc:mysql://169.254.48.160:3306/lanyuan_v_3?useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull&amp;allowMultiQueries=true " /> 
-    <property name="username" value="root" /> 
-    <property name="password" value="" /> 
-    <property name="connectionProperties" value="com.mysql.jdbc.Driver"></property>
+<!--     <property name="url" value="jdbc:mysql://169.254.48.160:3306/lanyuan_v_3?useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull&amp;allowMultiQueries=true " />  -->
+<!--     <property name="username" value="root" />  -->
+<!--     <property name="password" value="" />  -->
+<!--     <property name="connectionProperties" value="com.mysql.jdbc.Driver"></property> -->
     
     <!-- 基本属性 url、user、password -->  
-<!--     <property name="url" value="${jdbc_url}" />   -->
-<!--     <property name="username" value="${jdbc_user}" />   -->
-<!--     <property name="password" value="${jdbc_password}" />   -->
+    <property name="url" value="${jdbc.url}" />
+	<property name="username" value="${jdbc.username}" />
+	<property name="password" value="${jdbc.password}" />
+	<property name="connectionProperties" value="${jdbc.driverClass}" />
         
     <!-- 配置初始化大小、最小、最大 -->  
     <property name="initialSize" value="1" />  
@@ -64,8 +68,36 @@
    
     <!-- 配置监控统计拦截的filters，去掉后监控界面sql无法统计 -->  
     <property name="filters" value="stat" />   
-</bean>  
+</bean>
+	<!-- 自动扫描业务包 -->
+<!-- 	<context:component-scan base-package="com.xxx.service" /> -->
 
+
+	<!-- 配置事务 -->
+	<bean id="txManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
 	
+	<!-- 配置基于注解的事物aop -->
+	<tx:annotation-driven transaction-manager="txManager"
+		proxy-target-class="true" />  
+	
+	
+	<!-- 集成mybatis -->  
+	<!-- SqlSessionFactoryBean是一个工厂bean，它的作用就是解析配置（数据源、别名等）	 -->
+	<!-- apperFactoryBean是一个工厂bean，在spring容器里，工厂bean是有特殊用途的，当spring将工厂bean注入到其他bean里时，它不是注入工厂bean本身而是调用bean的getObject方法 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!-- 自动匹配Mapper映射文件 -->
+		<property name="mapperLocations" value="classpath:mappings/*-mapper.xml"/>
+		<!-- 自动配置别名 -->
+		<property name="typeAliasesPackage" value="com.y.entity"/>
+	</bean>
+	
+	<!-- 通过扫描的模式，扫描目录在com.lanyuan.mapper目录下，所有的mapper都继承SqlMapper接口的接口， 这样一个bean就可以了 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.y.mapper" />
+	</bean>
 	
 </beans>
