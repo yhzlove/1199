@@ -7,17 +7,17 @@ import com.y.entity.User;
 
 
 public interface UserMapper {
-    int deleteByPrimaryKey(String userId);
+//    int deleteByPrimaryKey(String userId);
 
     int insert(User record);
 
-    int insertSelective(User record);
+//    int insertSelective(User record);
 
     User selectByPrimaryKey(String userId);
 
-    int updateByPrimaryKeySelective(User record);
+//    int updateByPrimaryKeySelective(User record);
 
-    int updateByPrimaryKey(User record);
+//    int updateByPrimaryKey(User record);
     
     /**获取所有用户信息
      * @return List<User>

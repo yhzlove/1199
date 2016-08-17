@@ -27,8 +27,8 @@ public class MyBatisTestBySpringTestFramework {
         User user = new User();
         user.setUserId(UUID.randomUUID().toString().replaceAll("-", ""));
         user.setUserName("xdp_gacl_白虎神皇");
-        user.setUserBirthday(new Date());
-        user.setUserSalary(10000D);
+//        user.setUserBirthday(new Date());
+//        user.setUserSalary(10000D);
         userService.addUser(user);
     }
     

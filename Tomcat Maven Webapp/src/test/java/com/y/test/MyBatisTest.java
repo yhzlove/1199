@@ -38,8 +38,8 @@ public class MyBatisTest {
         User user = new User();
         user.setUserId(UUID.randomUUID().toString().replaceAll("-", ""));
         user.setUserName("白虎神皇xdp");
-        user.setUserBirthday(new Date());
-        user.setUserSalary(10000D);
+//        user.setUserBirthday(new Date());
+//        user.setUserSalary(10000D);
         userService.addUser(user);
     }
     

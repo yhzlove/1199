@@ -25,8 +25,8 @@
                 <tr>
                     <td>${user.userId}</td>
                     <td>${user.userName}</td>
-                    <td>${user.userBirthday}</td>
-                    <td>${user.userSalary}</td>
+                    <td>${user.password}</td>
+                    <td>${user.createTime}</td>
                 </tr>
             </c:forEach>
         </table>
