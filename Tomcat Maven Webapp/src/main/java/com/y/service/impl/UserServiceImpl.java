@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserServiceI {
 
     @Override
     public void addUser(User user) {
-        userMapper.insert(user);
+        userMapper.insertC(user);
     }
 
     @Override
@@ -41,4 +41,9 @@ public class UserServiceImpl implements UserServiceI {
     public List<User> getAllUser() {
         return userMapper.getAllUser();
     }
+
+	@Override
+	public void deleteUser(String userId) {
+		userMapper.deleteByPrimaryKey(userId);
+	}
 }

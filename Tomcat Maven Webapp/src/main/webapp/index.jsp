@@ -27,8 +27,17 @@
                     <td>${user.userName}</td>
                     <td>${user.password}</td>
                     <td>${user.createTime}</td>
+                    <td><a href="<%=request.getContextPath()%>/user/deleteEntity/${user.userId}">删除</a>  </td>
                 </tr>
             </c:forEach>
         </table>
+        <br/><br/>
+        <form action="<%=request.getContextPath()%>/user/addEntity" method="post">
+	   	ID：<input name="userId"><br/>
+   	名称：<input name="userName"><br/>
+   	描述：<input name="loginName"><br/>
+	   
+		  <input type="submit" value="提交">
+	   </form>
     </body>
 </html>

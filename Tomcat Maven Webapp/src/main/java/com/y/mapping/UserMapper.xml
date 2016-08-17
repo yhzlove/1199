@@ -41,7 +41,17 @@
 		#{credentialsSalt,jdbcType=VARCHAR},
 		#{createTime,jdbcType=DATE}, )
 	</insert>
-
+	
+	<insert id="insertC" parameterType="com.y.entity.User">
+		insert into t_user (user_id,
+		user_name, login_name
+		)
+		values
+		(#{userId,jdbcType=CHAR}, #{userName,jdbcType=VARCHAR},
+		#{loginName,jdbcType=VARCHAR})
+	</insert>
+	
+	
 	<select id="getAllUser" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
