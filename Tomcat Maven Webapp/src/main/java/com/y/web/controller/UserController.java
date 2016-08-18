@@ -48,6 +48,13 @@ public class UserController{
 		logger.warn("List-----------WWWWWWWWWWWWWWWWWWWWWW");  
 		logger.error("List-----------EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");  
 		//Logger.error("异常信息");
+		//logs debug message
+				if(logger.isDebugEnabled()){
+					logger.debug("getWelcome is executed!");
+				}
+
+				//logs exception
+				logger.error("This is Error message", new Exception("Testing"));
 		return "index";
 	}
 	@ResponseBody
