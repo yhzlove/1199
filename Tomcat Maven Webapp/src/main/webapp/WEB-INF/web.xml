@@ -4,7 +4,12 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
     http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_1471497891520">
 	<display-name>Tomcat</display-name>
-
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>login.jsp</welcome-file>
+		<welcome-file>hplus/login.html</welcome-file>
+	</welcome-file-list>
+	
 	<listener>
         <description>Spring监听器</description>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
@@ -16,7 +21,7 @@
         <param-value>classpath:spring-application.xml,classpath:spring-mybatis.xml</param-value>
     </context-param>
     
-<servlet> 
+	<servlet> 
 		<servlet-name>springMVC</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
