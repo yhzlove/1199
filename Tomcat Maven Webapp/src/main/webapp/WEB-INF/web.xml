@@ -5,10 +5,7 @@
     http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_1471497891520">
 	<display-name>Tomcat</display-name>
 	<welcome-file-list>
-		<welcome-file>index.jsp</welcome-file>
-		
-<!-- 		<welcome-file>login.jsp</welcome-file> -->
-<!-- 		<welcome-file>hplus/login.html</welcome-file> -->
+		<welcome-file>index</welcome-file>
 	</welcome-file-list>
 	
 	<listener>
@@ -34,6 +31,10 @@
 	<servlet-mapping>
 		<servlet-name>springMVC</servlet-name>
 		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>springMVC</servlet-name>
+		<url-pattern>/index</url-pattern>
 	</servlet-mapping>
 	
 	<filter>
