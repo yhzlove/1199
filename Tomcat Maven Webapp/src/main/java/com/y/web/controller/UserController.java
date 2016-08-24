@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 
+
 import sun.util.logging.resources.logging;
 
+import com.alibaba.fastjson.JSON;
 import com.y.entity.User;
 import com.y.service.UserServiceI;
 
@@ -41,7 +43,7 @@ public class UserController{
 	@RequestMapping("list")
 	public String listUI(Model model) throws Exception {
 		List<User> lstUsers = userService.getAllUser();
-		model.addAttribute("lstUsers", lstUsers);
+		model.addAttribute("lstUsers", JSON.toJSON(lstUsers));
 		logger.debug("List-----------");
 		logger.debug("List-----------DDDDDDDDDDDDD");  
 		logger.info("List-----------IIIIIIIIIIIIIIIIII");  
@@ -55,7 +57,7 @@ public class UserController{
 
 				//logs exception
 				logger.error("This is Error message", new Exception("Testing"));
-		return "index";
+		return "/user/userlist";
 	}
 	@RequestMapping("addEntity")
 	@Transactional(readOnly=false)//需要事务操作必须加入此注解
