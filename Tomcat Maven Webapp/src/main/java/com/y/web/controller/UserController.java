@@ -59,6 +59,12 @@ public class UserController{
 				logger.error("This is Error message", new Exception("Testing"));
 		return "/user/userlist";
 	}
+	
+	@RequestMapping(value="useradd",method=RequestMethod.GET)
+	public String addEntity(){
+		
+		return "/user/useradd";
+	}
 	@RequestMapping("addEntity")
 	@Transactional(readOnly=false)//需要事务操作必须加入此注解
 	public String addEntity(User entity, Model model, HttpServletRequest request){

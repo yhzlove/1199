@@ -30,10 +30,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script src="<%=path %>/hplus/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
     <script src="<%=path %>/hplus/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
     <script src="<%=path %>/hplus/js/demo/bootstrap-table-demo.min.js"></script>
+    
+    <script src="<%=path %>/hplus/js/plugins/layer/layer-v2.4/layer.js?v=2.4"></script>
   </head>
   
   <body class="gray-bg">
   	<div class="wrapper wrapper-content animated fadeInRight">
+  		<input type="button" value="新增测试" id="adduser">
 		<table id="table">
 		    <thead>
 		    <tr>
@@ -54,8 +57,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    $('#table').bootstrapTable({
 		        data: data
 		    });
-		});
-    
+		    $("#adduser").click(function(){
+		    	layer.open({
+				    type: 2,
+				    title: false,
+				    closeBtn: false,
+				    shade: [0],
+				    area: ['340px', '215px'],
+				    offset: 'rb', //右下角弹出
+				    time: 2000, //2秒后自动关闭
+				    shift: 2,
+				    content: ['http://www.zi-han.net', 'no'], //iframe的url，no代表不显示滚动条
+				    end: function(){ //此处用于演示
+				        parent.layer.open({
+				            type: 2,
+				            title: '很多时候，我们想最大化看，比如像这个页面。',
+				            shadeClose: true,
+				            shade: false,
+				            maxmin: true, //开启最大化最小化按钮
+				            area: ['1150px', '650px'],
+				            content: 'http://www.zi-han.net'
+				        });
+				    }
+				});
+			});
+    	});
     </script>
     
   </body>
