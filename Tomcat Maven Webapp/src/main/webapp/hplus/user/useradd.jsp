@@ -30,6 +30,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script src="<%=path %>/hplus/js/plugins/staps/jquery.steps.min.js"></script>
     <script src="<%=path %>/hplus/js/plugins/validate/jquery.validate.min.js"></script>
     <script src="<%=path %>/hplus/js/plugins/validate/messages_zh.min.js"></script>
+    <script src="<%=path %>/hplus/js/plugins/from/jquery.form.js?v=3.51.0"></script>
+    <script src="<%=path %>/hplus/js/plugins/layer/layer-v2.4/layer.js?v=2.4"></script>
 </head>
 
 <body class="gray-bg">
@@ -46,7 +48,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             下面这个示例展示了如何在表单向导中使用 jQuery Validation 插件
                         </p>
 
-                        <form id="form" action="http://www.zi-han.net/theme/hplus/form_wizard.html#" class="wizard-big">
+                        <form id="form" action="<%=request.getContextPath()%>/user/addEntity" method="post" class="wizard-big">
                             <h1>账户</h1>
                             <fieldset>
                                 <h2>账户信息</h2>
@@ -54,7 +56,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                     <div class="col-sm-8">
                                         <div class="form-group">
                                             <label>用户名 *</label>
-                                            <input id="userName" name="userName" type="text" class="form-control required">
+                                            <input id="loginName" name="loginName" type="text" class="form-control required">
                                         </div>
                                         <div class="form-group">
                                             <label>密码 *</label>
@@ -82,13 +84,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label>姓名 *</label>
-                                            <input id="name" name="name" type="text" class="form-control required">
+                                            <input id="userName" name="userName" type="text" class="form-control required">
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label>Email *</label>
-                                            <input id="email" name="email" type="text" class="form-control required email">
+                                            <label>userId *</label>
+                                            <input id="userId" name="userId" type="text" class="form-control required">
                                         </div>
                                         <div class="form-group">
                                             <label>地址 *</label>
@@ -153,8 +155,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         	},
         	onFinished:function(event,currentIndex){
         		var form=$(this);
-        		form.submit()
+        		//form.submit();
+        		form.ajaxSubmit({
+					type : "post",
+					dataType : "json",
+					success: function(data){  
+                        alert( "success"); 
+                    },
+                    error:function (){
+                    	alert(0)
+                    }
+				});
+        		
+        	},
+        	onCanceled:function(event,currentIndex){
+        		
+        		//当你在iframe页面关闭自身时
+				var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+				parent.layer.close(index); //再执行关闭   
         	}
+        	
         }).validate({
         	errorPlacement:function(error,element){
         		element.before(error)

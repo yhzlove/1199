@@ -2,6 +2,8 @@ package com.y.web.controller;
 
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,9 +22,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 
 
+
+
+
+
+
 import sun.util.logging.resources.logging;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.y.entity.User;
 import com.y.service.UserServiceI;
 
@@ -42,7 +50,8 @@ public class UserController{
 	
 	@RequestMapping("list")
 	public String listUI(Model model) throws Exception {
-		List<User> lstUsers = userService.getAllUser();
+		List<User> lstUsers = //new ArrayList<User>();
+				userService.getAllUser();
 		model.addAttribute("lstUsers", JSON.toJSON(lstUsers));
 		logger.debug("List-----------");
 		logger.debug("List-----------DDDDDDDDDDDDD");  
@@ -65,13 +74,24 @@ public class UserController{
 		
 		return "/user/useradd";
 	}
+	@ResponseBody
 	@RequestMapping("addEntity")
 	@Transactional(readOnly=false)//需要事务操作必须加入此注解
-	public String addEntity(User entity, Model model, HttpServletRequest request){
+	public Map<String, Object> addEntity(User entity, Model model, HttpServletRequest request){
 		
 		userService.addUser(entity);
 		
-		return "index";
+		//model.addAttribute("success", "true");
+		Map<String, Object> modelMap = new HashMap<String, Object>(3);  
+	    modelMap.put("total", "1");  
+	    modelMap.put("data", "1");  
+	    modelMap.put("success", "true"); 
+//	    JSON json = new JSON() {
+//	    	
+//		};
+	    return modelMap;  
+		
+		
 	}
 	
 	@ResponseBody
