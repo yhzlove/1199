@@ -19,7 +19,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link rel="shortcut icon" href="<%=path %>/hplus/favicon.ico"> 
     <link href="<%=path %>/hplus/css/bootstrap.min14ed.css?v=3.3.6" rel="stylesheet">
     <link href="<%=path %>/hplus/css/font-awesome.min93e3.css?v=4.4.0" rel="stylesheet">
-    <link href="<%=path %>/hplus/ss/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="<%=path %>/hplus/css/plugins/iCheck/custom.css" rel="stylesheet">
     <link href="<%=path %>/hplus/css/plugins/steps/jquery.steps.css" rel="stylesheet">
     <link href="<%=path %>/hplus/css/animate.min.css" rel="stylesheet">
     <link href="<%=path %>/hplus/css/style.min862f.css?v=4.1.0" rel="stylesheet">

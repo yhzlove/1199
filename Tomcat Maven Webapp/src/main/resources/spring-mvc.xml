@@ -40,4 +40,25 @@
     <mvc:resources mapping="/hplus/img/**" location="/hplus/img/" cache-period="31536000"/>  
     <mvc:resources mapping="/hplus/fonts/**" location="/hplus/fonts/" cache-period="31536000"/>  
     <mvc:resources mapping="/hplus/images/**" location="/hplus/images/" cache-period="31536000"/>  
+    
+    <!--避免IE执行AJAX时，返回JSON出现下载文件 -->
+	<bean id="mappingJackson2HttpMessageConverter"
+		class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>text/html;charset=UTF-8</value>
+				<value>text/json;charset=UTF-8</value>
+				<value>application/json;charset=UTF-8</value>
+			</list>
+		</property>
+	</bean>
+    <!-- 采用SpringMVC自带的JSON转换工具，支持@ResponseBody注解 -->
+	<bean
+		class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<ref bean="mappingJackson2HttpMessageConverter" />    <!-- JSON转换器 -->
+			</list>
+		</property>
+	</bean>
 </beans>
