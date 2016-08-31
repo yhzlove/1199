@@ -76,9 +76,17 @@ public class UserController{
 		
 		return "/user/useradd";
 	}
+	/**
+	 * Object  可以
+	 * Map   可以
+	 * 
+	 * <P>TODO</P>
+	 * 2016年8月31日 下午4:36:25
+	 * @author yanhz
+	 */
 	@ResponseBody
 	@RequestMapping("addEntity")
-	public String  addEntity(User entity, Model model, HttpServletRequest request){
+	public Map  addEntity(User entity, Model model, HttpServletRequest request){
 		
 		//userService.addUser(entity);
 		
@@ -88,7 +96,9 @@ public class UserController{
 	    modelMap.put("data", "1");  
 	    modelMap.put("success", "true"); 
 	   // ModelAndView mav=new ModelAndView("user/useradd",modelMap);
-	    return "success";
+	    
+	    
+	    return modelMap;
 		
 		
 	}
