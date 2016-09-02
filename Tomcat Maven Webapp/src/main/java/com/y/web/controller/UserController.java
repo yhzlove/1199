@@ -1,14 +1,13 @@
 package com.y.web.controller;
 
 
-import java.io.IOException;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,19 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
-
-
-
-
-
-
-import org.springframework.web.servlet.ModelAndView;
-
-import sun.util.logging.resources.logging;
-
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.y.entity.User;
 import com.y.service.UserServiceI;
 
@@ -44,6 +31,8 @@ public class UserController{
 	private  static  final Logger logger = Logger.getLogger(UserController.class);
 	
 	private UserServiceI userService;
+
+	private User user;
 	@Autowired(required=true)
 	public void setUserService(UserServiceI userService) {
 		this.userService = userService;
@@ -52,25 +41,43 @@ public class UserController{
 	
 	@RequestMapping("list")
 	public String listUI(Model model) throws Exception {
-		List<User> lstUsers = new ArrayList<User>();
-				//userService.getAllUser();
+		List<User> lstUsers = 
+//				new ArrayList<User>();
+//		User _user = new User();
+//		_user.setCreateTime(new Date());
+//		_user.setUserName("宝宝");
+//		lstUsers.add(_user);
+				userService.getAllUser();
 		model.addAttribute("lstUsers", JSON.toJSON(lstUsers));
-		logger.debug("List-----------");
-		logger.debug("List-----------DDDDDDDDDDDDD");  
-		logger.info("List-----------IIIIIIIIIIIIIIIIII");  
-		logger.warn("List-----------WWWWWWWWWWWWWWWWWWWWWW");  
-		logger.error("List-----------EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");  
-		//Logger.error("异常信息");
-		//logs debug message
-				if(logger.isDebugEnabled()){
-					logger.debug("getWelcome is executed!");
-				}
-
-				//logs exception
-				logger.error("This is Error message", new Exception("Testing"));
+		model.addAttribute("lstUsers1", lstUsers);
+//		logger.debug("List-----------");
+//		logger.debug("List-----------DDDDDDDDDDDDD");  
+//		logger.info("List-----------IIIIIIIIIIIIIIIIII");  
+//		logger.warn("List-----------WWWWWWWWWWWWWWWWWWWWWW");  
+//		logger.error("List-----------EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");  
+//		//Logger.error("异常信息");
+//		//logs debug message
+//				if(logger.isDebugEnabled()){
+//					logger.debug("getWelcome is executed!");
+//				}
+//
+//				//logs exception
+//				logger.error("This is Error message", new Exception("Testing"));
 		return "/user/userlist";
 	}
 	
+	@ResponseBody
+	@RequestMapping("listJSON")
+	public Map listUIJSON(Model model) throws Exception {
+		List<User> lstUsers = 
+				userService.getAllUser();
+		//model.addAttribute("lstUsers", JSON.toJSON(lstUsers));
+		Map<String, Object> modelMap = new HashMap<String, Object>(3);  
+	    modelMap.put("lstUsers", JSON.toJSON(lstUsers));  
+	    modelMap.put("lstUsers1", lstUsers);
+	    
+	    return modelMap;
+	}
 	@RequestMapping(value="useradd",method=RequestMethod.GET)
 	public String addEntity(){
 		
@@ -88,7 +95,7 @@ public class UserController{
 	@RequestMapping("addEntity")
 	public Map  addEntity(User entity, Model model, HttpServletRequest request){
 		
-		//userService.addUser(entity);
+		userService.addUser(entity);
 		
 		//model.addAttribute("success", "true");
 		Map<String, Object> modelMap = new HashMap<String, Object>(3);  

@@ -160,10 +160,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					type : "post",
 					dataType : "json",
 					success: function(data){  
-                        alert( "success"); 
+                        //alert( "success");
+                        console.log(data);
+                        
+                        if (data.success) {
+						layer.confirm('添加成功!是否关闭窗口?', function(index) {
+							parent.loadData();
+							//parent.layer.close(parent.layer.getFrameIndex(window.name));
+							parent.layer.close(parent.addpage);
+							return false;
+						});
+						//$("#form")[0].reset();
+					} else {
+						layer.alert('添加失败！', 3);
+					}
                     },
                     error:function (e){
-                    console.log(e)
                     	alert(0)
                     }
 				});

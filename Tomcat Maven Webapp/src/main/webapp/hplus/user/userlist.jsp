@@ -48,18 +48,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    </tr>
 		    </thead>
 		</table>    
-	
+		
     </div>
     <script type="text/javascript">
     	var data = ${lstUsers};
-		
+		var addpage = null;
 		$(function () {
 		    $('#table').bootstrapTable({
 		        data: data
 		    });
 		    $("#adduser").click(function(){
 		    	var url = "<%=path%>/user/useradd";
-		    	parent.layer.open({
+		    	addpage = layer.open({
 				            type: 2,
 				            title: '很多时候，我们想最大化看，比如像这个页面。',
 				            shadeClose: true,
@@ -92,6 +92,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 // 				});
 			});
     	});
+    	//刷新页面数据
+    	function loadData(){
+     		alert("loadData");
+			//location.href='';
+			$.ajax({
+	             type: "POST",
+	             url: "<%=request.getContextPath()%>/user/listJSON",
+	             //data: {username:$("#username").val(), content:$("#content").val()},
+	             dataType: "json",
+	             success: function(data){
+	             	console.log(data);
+	             	console.log(data.lstUsers);
+	             	//console.log($('#table').html());
+// 	                   $('#table1').bootstrapTable({
+// 			    			data: data.lstUsers
+// 			    		});
+						$('#table').bootstrapTable('destroy').bootstrapTable({
+							data: data.lstUsers
+						});
+	             },
+	             error:function(){
+	             	alert("error");
+	             }
+         	});
+    	}
     </script>
     
   </body>
