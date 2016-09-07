@@ -48,8 +48,13 @@ public class UserController{
 //		_user.setUserName("宝宝");
 //		lstUsers.add(_user);
 				userService.getAllUser();
-		model.addAttribute("lstUsers", JSON.toJSON(lstUsers));
-		model.addAttribute("lstUsers1", lstUsers);
+		
+		//model.addAttribute("lstUsers", JSON.toJSON(lstUsers));
+		//model.addAttribute("lstUsers1", lstUsers);
+		Map<String, Object> modelMap = new HashMap<String, Object>(); 
+		modelMap.put("rows", JSON.toJSON(lstUsers)); 
+	    modelMap.put("total", 100);
+	    model.addAttribute("page", modelMap);
 //		logger.debug("List-----------");
 //		logger.debug("List-----------DDDDDDDDDDDDD");  
 //		logger.info("List-----------IIIIIIIIIIIIIIIIII");  
@@ -72,10 +77,11 @@ public class UserController{
 		List<User> lstUsers = 
 				userService.getAllUser();
 		//model.addAttribute("lstUsers", JSON.toJSON(lstUsers));
-		Map<String, Object> modelMap = new HashMap<String, Object>(3);  
-	    modelMap.put("lstUsers", JSON.toJSON(lstUsers));  
-	    modelMap.put("lstUsers1", lstUsers);
-	    
+		Map<String, Object> modelMap = new HashMap<String, Object>();  
+	    //modelMap.put("lstUsers", JSON.toJSON(lstUsers));  
+	    //modelMap.put("lstUsers1", lstUsers);
+	    modelMap.put("rows", JSON.toJSON(lstUsers)); 
+	    modelMap.put("total", 100);
 	    return modelMap;
 	}
 	@RequestMapping(value="useradd",method=RequestMethod.GET)

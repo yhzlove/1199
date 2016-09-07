@@ -51,11 +51,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
     </div>
     <script type="text/javascript">
-    	var data = ${lstUsers};
+    	var data = '${page}';
 		var addpage = null;
 		$(function () {
 		    $('#table').bootstrapTable({
-		        data: data
+		    	
+// 		    	pagination: true, //设置在哪里进行分页，可选值为 'client' 或者 'server'。设置 'server'时，必须设置 服务器数据地址（url）或者重写ajax方法
+// 				sidePagination: "server", //服务端处理分页
+// 				data: data,
+// 		        pageList: [5,10],
+// 		        pageSize:10,
+//  				pageNumber:1
+		        //method: 'post',
+		       // contentType: "application/x-www-form-urlencoded",
+		       sidePagination: "server" ,//服务端处理分页
+		        url:"<%=request.getContextPath()%>/user/listJSON",
+		       // dataType: "json",
+		        pagination: true, //分页
+// 		        pageList: [5,10],
+// 		        pageSize:10,
+//  				pageNumber:1
+		        //
+		        
 		    });
 		    $("#adduser").click(function(){
 		    	var url = "<%=path%>/user/useradd";
@@ -65,7 +82,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				            shadeClose: true,
 				            shade: false,
 				            maxmin: true, //开启最大化最小化按钮
-				            area: ['1150px', '650px'],
+				            area: ['650px', '350px'],
 				            content: url
 				   });
 // 		    	layer.open({
@@ -94,8 +111,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	});
     	//刷新页面数据
     	function loadData(){
-     		alert("loadData");
+     		//alert("loadData");
 			//location.href='';
+			
+// 			$('#table').bootstrapTable('destroy').bootstrapTable({
+// 				data: data.lstUsers
+// 			});
+			
 			$.ajax({
 	             type: "POST",
 	             url: "<%=request.getContextPath()%>/user/listJSON",
@@ -104,13 +126,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	             success: function(data){
 	             	console.log(data);
 	             	console.log(data.lstUsers);
-	             	//console.log($('#table').html());
-// 	                   $('#table1').bootstrapTable({
-// 			    			data: data.lstUsers
-// 			    		});
-						$('#table').bootstrapTable('destroy').bootstrapTable({
-							data: data.lstUsers
-						});
+					$('#table').bootstrapTable('destroy').bootstrapTable({
+						data: data.lstUsers1
+					});
 	             },
 	             error:function(){
 	             	alert("error");
