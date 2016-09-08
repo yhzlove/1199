@@ -56,22 +56,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$(function () {
 		    $('#table').bootstrapTable({
 		    	
-// 		    	pagination: true, //设置在哪里进行分页，可选值为 'client' 或者 'server'。设置 'server'时，必须设置 服务器数据地址（url）或者重写ajax方法
-// 				sidePagination: "server", //服务端处理分页
-// 				data: data,
-// 		        pageList: [5,10],
-// 		        pageSize:10,
-//  				pageNumber:1
-		        //method: 'post',
-		       // contentType: "application/x-www-form-urlencoded",
-		       sidePagination: "server" ,//服务端处理分页
+		       	sidePagination: "server" ,//服务端处理分页
 		        url:"<%=request.getContextPath()%>/user/listJSON",
-		       // dataType: "json",
-		        pagination: true, //分页
-// 		        pageList: [5,10],
-// 		        pageSize:10,
-//  				pageNumber:1
-		        //
+		        pagination: true, //设置在哪里进行分页，可选值为 'client' 或者 'server'。设置 'server'时，必须设置 服务器数据地址（url）或者重写ajax方法
+		        pageList: [5,10],
+		        pageSize:10,
+ 				pageNumber:1
 		        
 		    });
 		    $("#adduser").click(function(){

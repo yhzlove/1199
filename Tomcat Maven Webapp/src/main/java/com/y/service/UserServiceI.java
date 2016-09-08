@@ -30,4 +30,6 @@ public interface UserServiceI {
      * @return List<User>
      */
     List<User> getAllUser();
+
+	List<User> getAllUserPage(int currentPage, int showCount);
 }

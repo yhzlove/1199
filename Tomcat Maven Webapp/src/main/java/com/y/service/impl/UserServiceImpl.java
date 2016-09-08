@@ -46,4 +46,10 @@ public class UserServiceImpl implements UserServiceI {
 	public void deleteUser(String userId) {
 		userMapper.deleteByPrimaryKey(userId);
 	}
+
+	@Override
+	public List<User> getAllUserPage(int currentPage, int showCount) {
+		// TODO Auto-generated method stub
+		return userMapper.getAllUserPage(currentPage,  showCount);
+	}
 }

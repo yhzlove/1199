@@ -57,4 +57,12 @@
 		<include refid="Base_Column_List" />
 		from t_user
 	</select>
+	
+	<select id="getAllUserPage" resultMap="BaseResultMap" parameterType="int">
+		select
+		<include refid="Base_Column_List" />
+		from t_user 
+<!-- 		limit 0,4 -->
+ 		limit #{currentPage}, #{showCount} 
+	</select>
 </mapper>

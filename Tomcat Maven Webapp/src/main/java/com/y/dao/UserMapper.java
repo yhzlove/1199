@@ -2,6 +2,8 @@ package com.y.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.y.entity.User;
 
 
@@ -25,4 +27,6 @@ public interface UserMapper {
      * @return List<User>
      */
     List<User> getAllUser();
+
+	List<User> getAllUserPage(@Param("currentPage") int currentPage,@Param("showCount") int showCount);
 }
