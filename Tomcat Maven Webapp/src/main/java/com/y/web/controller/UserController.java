@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSON;
+import com.y.entity.PageView;
 import com.y.entity.User;
 import com.y.service.UserServiceI;
 
@@ -71,21 +72,23 @@ public class UserController {
 
 	@ResponseBody
 	@RequestMapping("listJSON")
-	public Map listUIJSON(HttpServletRequest request,Model model) throws Exception {
+	public Map listUIJSON(PageView pageView,HttpServletRequest request,Model model) throws Exception {
 //		List<User> lstUsers = 
 //				userService.getAllUser();
 		Map<String, Object> modelMap = new HashMap<String, Object>();  
 	    //modelMap.put("lstUsers", JSON.toJSON(lstUsers));  
 	    //modelMap.put("lstUsers1", lstUsers);
-		int currentPage = request.getParameter("offset") == null ? 1 : Integer.parseInt(request.getParameter("offset"));
-		int showCount = request.getParameter("limit") == null ? 10 : Integer.parseInt(request.getParameter("limit"));
+//		int currentPage = request.getParameter("offset") == null ? 1 : Integer.parseInt(request.getParameter("offset"));
+//		int showCount = request.getParameter("limit") == null ? 10 : Integer.parseInt(request.getParameter("limit"));
 		
+		//分页  + request
+		pageView = userService.getUserPage(pageView, request);
 		//pageNow, pageSize,
-		List<User> lstUsers = 
-				userService.getAllUserPage(currentPage,showCount);
+//		List<User> lstUsers = 
+//				userService.getAllUserPage(currentPage,showCount);
 		
-	    modelMap.put("rows", JSON.toJSON(lstUsers)); 
-	    modelMap.put("total", 100);
+	    modelMap.put("rows", pageView.getRows());
+	    modelMap.put("total", pageView.getTotal());
 	    return modelMap;
 	}
 

@@ -1,8 +1,11 @@
 package com.y.service;
 
+import com.y.entity.PageView;
 import com.y.entity.User;
 
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 
 public interface UserServiceI {
@@ -32,4 +35,6 @@ public interface UserServiceI {
     List<User> getAllUser();
 
 	List<User> getAllUserPage(int currentPage, int showCount);
+
+	PageView getUserPage(PageView pageView, HttpServletRequest request);
 }

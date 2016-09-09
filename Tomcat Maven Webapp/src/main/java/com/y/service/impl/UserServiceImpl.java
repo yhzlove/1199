@@ -5,11 +5,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.y.dao.UserMapper;
+import com.y.entity.PageView;
 import com.y.entity.User;
 import com.y.service.UserServiceI;
 
 
+
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 
 /**
@@ -51,5 +55,17 @@ public class UserServiceImpl implements UserServiceI {
 	public List<User> getAllUserPage(int currentPage, int showCount) {
 		// TODO Auto-generated method stub
 		return userMapper.getAllUserPage(currentPage,  showCount);
+	}
+
+	@Override
+	public PageView getUserPage(PageView pageView, HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		
+		 List<User> list = userMapper.getAllUserPage(pageView.getOffset(),  pageView.getLimit());
+		 pageView.setRows(list);
+		 pageView.setTotal(1000);
+		 
+		 
+		 return pageView;
 	}
 }
