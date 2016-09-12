@@ -36,7 +36,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body class="gray-bg">
   	<div class="wrapper wrapper-content animated fadeInRight">
-  		<input type="button" value="新增测试" id="adduser">
+  		<input type="button" value="新增测试" id="adduser"><br/>
+  		ID:<input type="text" value="" id="userId">
+  		用户名:<input type="text" value="" id="userName">
+  		账号:<input type="text" value="" id="loginName">
+  		<button type="button" style="margin-left:50px" onclick="loadData()" id="btn_query" class="btn btn-primary">查询</button>
 		<table id="table">
 		    <thead>
 		    <tr>
@@ -55,14 +59,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		var addpage = null;
 		$(function () {
 		    $('#table').bootstrapTable({
-		    	
 		       	sidePagination: "server" ,//服务端处理分页
 		        url:"<%=request.getContextPath()%>/user/listJSON",
 		        pagination: true, //设置在哪里进行分页，可选值为 'client' 或者 'server'。设置 'server'时，必须设置 服务器数据地址（url）或者重写ajax方法
 		        pageList: [5,10],
 		        pageSize:10,
- 				pageNumber:1
-		        
+ 				pageNumber:1,
+ 				queryParams:function queryParams(params) {
+				            return {
+				            	limit: params.limit,   //页面大小
+            					offset: params.offset,  //页码
+				                userId: $("#userId").val(),
+				                userName: $("#userName").val(),
+				                loginName: $("#loginName").val(),
+				            };
+				        }
 		    });
 		    $("#adduser").click(function(){
 		    	var url = "<%=path%>/user/useradd";
@@ -101,29 +112,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	});
     	//刷新页面数据
     	function loadData(){
-     		//alert("loadData");
-			//location.href='';
+// 			$.ajax({
+// 	             type: "POST",
+// 	             url: "<%=request.getContextPath()%>/user/listJSON",
+// 	             dataType: "json",
+// 	             success: function(data){
+// 	             	console.log(data);
+// 	             	console.log(data.lstUsers);
+// 					$('#table').bootstrapTable('destroy').bootstrapTable({
+// 						data: data.lstUsers1
+// 					});
+// 	             },
+// 	             error:function(){
+// 	             	alert("error");
+// 	             }
+//          	});
 			
-// 			$('#table').bootstrapTable('destroy').bootstrapTable({
-// 				data: data.lstUsers
-// 			});
-			
-			$.ajax({
-	             type: "POST",
-	             url: "<%=request.getContextPath()%>/user/listJSON",
-	             //data: {username:$("#username").val(), content:$("#content").val()},
-	             dataType: "json",
-	             success: function(data){
-	             	console.log(data);
-	             	console.log(data.lstUsers);
-					$('#table').bootstrapTable('destroy').bootstrapTable({
-						data: data.lstUsers1
-					});
-	             },
-	             error:function(){
-	             	alert("error");
-	             }
-         	});
+			$('#table').bootstrapTable('refresh');
+		
     	}
     </script>
     

@@ -39,7 +39,7 @@ public class UserController {
 	}
 
 	@RequestMapping("list")
-	public String listUI(Model model) throws Exception {
+	public String listUI(HttpServletRequest request,Model model) throws Exception {
 		List<User> lstUsers =
 		// new ArrayList<User>();
 		// User _user = new User();
@@ -67,6 +67,10 @@ public class UserController {
 		//
 		// //logs exception
 		// logger.error("This is Error message", new Exception("Testing"));
+		String parameter = request.getParameter("\156");
+		System.out.println(parameter);
+		parameter = request.getParameter("/156");
+		System.out.println(parameter);
 		return "/user/userlist";
 	}
 
@@ -101,9 +105,6 @@ public class UserController {
 	/**
 	 * Object 可以 Map 可以
 	 * 
-	 * <P>
-	 * TODO
-	 * </P>
 	 * 2016年8月31日 下午4:36:25
 	 * 
 	 * @author yanhz

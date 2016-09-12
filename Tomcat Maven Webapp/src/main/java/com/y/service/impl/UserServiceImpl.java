@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserServiceI {
 		
 		 List<User> list = userMapper.getAllUserPage(pageView.getOffset(),  pageView.getLimit());
 		 pageView.setRows(list);
-		 pageView.setTotal(1000);
+		 pageView.setTotal(userMapper.getAllUser().size());
 		 
 		 
 		 return pageView;

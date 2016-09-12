@@ -1,6 +1,7 @@
 package com.y.entity;
 
 import java.util.List;
+import java.util.Map;
 
 public class PageView {
 	
@@ -14,7 +15,8 @@ public class PageView {
 	private int limit;
 	private String order;
 	
-	
+	private String sort;
+	private Map<String, String> params;
 	
 	
 	public List<?> getRows() {
