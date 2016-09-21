@@ -36,7 +36,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body class="gray-bg">
   	<div class="wrapper wrapper-content animated fadeInRight">
-  		<input type="button" value="新增测试" id="adduser"><br/>
+  		<input type="button" value="新增测试" id="adduser"><input type="button" value="新增测试_v" id="adduser_v"><br/>
   		ID:<input type="text" value="" id="userId">
   		用户名:<input type="text" value="" id="userName">
   		账号:<input type="text" value="" id="loginName">
@@ -77,6 +77,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		    });
 		    $("#adduser").click(function(){
 		    	var url = "<%=path%>/user/useradd";
+		    	addpage = layer.open({
+				            type: 2,
+				            title: '很多时候，我们想最大化看，比如像这个页面。',
+				            shadeClose: true,
+				            shade: false,
+				            maxmin: true, //开启最大化最小化按钮
+				            area: ['650px', '350px'],
+				            content: url
+				   });
+			})
+			$("#adduser_v").click(function(){
+		    	var url = "<%=path%>/user/useradd_v";
 		    	addpage = layer.open({
 				            type: 2,
 				            title: '很多时候，我们想最大化看，比如像这个页面。',

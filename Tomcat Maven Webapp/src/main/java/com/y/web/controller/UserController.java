@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -40,66 +41,53 @@ public class UserController {
 
 	@RequestMapping("list")
 	public String listUI(HttpServletRequest request,Model model) throws Exception {
-		List<User> lstUsers =
-		// new ArrayList<User>();
-		// User _user = new User();
-		// _user.setCreateTime(new Date());
-		// _user.setUserName("宝宝");
-		// lstUsers.add(_user);
-		userService.getAllUser();
-
-		// model.addAttribute("lstUsers", JSON.toJSON(lstUsers));
-		// model.addAttribute("lstUsers1", lstUsers);
-		Map<String, Object> modelMap = new HashMap<String, Object>();
-		modelMap.put("rows", JSON.toJSON(lstUsers));
-		modelMap.put("total", 100);
-		model.addAttribute("page", modelMap);
-		// logger.debug("List-----------");
-		// logger.debug("List-----------DDDDDDDDDDDDD");
-		// logger.info("List-----------IIIIIIIIIIIIIIIIII");
-		// logger.warn("List-----------WWWWWWWWWWWWWWWWWWWWWW");
-		// logger.error("List-----------EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
-		// //Logger.error("异常信息");
-		// //logs debug message
-		// if(logger.isDebugEnabled()){
-		// logger.debug("getWelcome is executed!");
-		// }
-		//
-		// //logs exception
-		// logger.error("This is Error message", new Exception("Testing"));
-		String parameter = request.getParameter("\156");
-		System.out.println(parameter);
-		parameter = request.getParameter("/156");
-		System.out.println(parameter);
+//		List<User> lstUsers = userService.getAllUser();
+//
+//		Map<String, Object> modelMap = new HashMap<String, Object>();
+//		modelMap.put("rows", JSON.toJSON(lstUsers));
+//		modelMap.put("total", 100);
+//		model.addAttribute("page", modelMap);
+//		// logger.debug("List-----------");
+//		// logger.debug("List-----------DDDDDDDDDDDDD");
+//		// logger.info("List-----------IIIIIIIIIIIIIIIIII");
+//		// logger.warn("List-----------WWWWWWWWWWWWWWWWWWWWWW");
+//		// logger.error("List-----------EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+//		// //Logger.error("异常信息");
+//		// //logs debug message
+//		// if(logger.isDebugEnabled()){
+//		// logger.debug("getWelcome is executed!");
+//		// }
+//		//
+//		// //logs exception
+//		// logger.error("This is Error message", new Exception("Testing"));
 		return "/user/userlist";
 	}
 
 	@ResponseBody
 	@RequestMapping("listJSON")
-	public Map listUIJSON(PageView pageView,HttpServletRequest request,Model model) throws Exception {
-//		List<User> lstUsers = 
-//				userService.getAllUser();
-		Map<String, Object> modelMap = new HashMap<String, Object>();  
-	    //modelMap.put("lstUsers", JSON.toJSON(lstUsers));  
-	    //modelMap.put("lstUsers1", lstUsers);
-//		int currentPage = request.getParameter("offset") == null ? 1 : Integer.parseInt(request.getParameter("offset"));
-//		int showCount = request.getParameter("limit") == null ? 10 : Integer.parseInt(request.getParameter("limit"));
+	public Map listUIJSON(PageView pageView,HttpServletRequest request) throws Exception {
 		
+		Map<String,Object> map = new HashMap<String,Object>();
 		//分页  + request
 		pageView = userService.getUserPage(pageView, request);
-		//pageNow, pageSize,
-//		List<User> lstUsers = 
-//				userService.getAllUserPage(currentPage,showCount);
 		
-	    modelMap.put("rows", pageView.getRows());
-	    modelMap.put("total", pageView.getTotal());
-	    return modelMap;
+		map.put("rows",pageView.getRows());
+		map.put("total", pageView.getTotal());
+
+		
+		return map;
 	}
 
 	@RequestMapping(value = "useradd", method = RequestMethod.GET)
 	public String addEntity() {
 
 		return "/user/useradd";
+	}
+	
+	@RequestMapping(value = "useradd_v", method = RequestMethod.GET)
+	public String addEntity_v() {
+
+		return "/user/useradd_v";
 	}
 
 	/**
@@ -112,7 +100,9 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping("addEntity")
 	public Map addEntity(User entity, Model model, HttpServletRequest request) {
-
+		
+		UUID uuid = UUID.randomUUID();
+		entity.setUserId(uuid.toString().replace("-", ""));
 		userService.addUser(entity);
 
 		// model.addAttribute("success", "true");
