@@ -17,6 +17,8 @@ public interface UserMapper {
 //    int insertSelective(User record);
 
     User selectByPrimaryKey(String userId);
+    
+    int selectByLoginName(String loginName);
 
 //    int updateByPrimaryKeySelective(User record);
 
@@ -29,4 +31,6 @@ public interface UserMapper {
     List<User> getAllUser();
 
 	List<User> getAllUserPage(@Param("currentPage") int currentPage,@Param("showCount") int showCount);
+
+	User selectUserLogin(@Param("loginName")String loginName, @Param("password")String password);
 }

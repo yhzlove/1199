@@ -11,6 +11,9 @@ import com.y.service.UserServiceI;
 
 
 
+
+
+
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,7 +36,8 @@ public class UserServiceImpl implements UserServiceI {
 
     @Override
     public void addUser(User user) {
-        userMapper.insertC(user);
+        userMapper.insert(user);
+        //userMapper.insertC(user);
     }
 
     @Override
@@ -68,4 +72,20 @@ public class UserServiceImpl implements UserServiceI {
 		 
 		 return pageView;
 	}
+
+	@Override
+	public Integer validateUserName(String loginName) {
+		//loginName  不能重复
+		int counts = userMapper.selectByLoginName(loginName);
+		
+		return counts;
+	}
+
+	@Override
+	public User getUserLogin(String loginName, String password) {
+		// TODO Auto-generated method stub
+		User  user = userMapper.selectUserLogin(loginName,password);
+		return user;
+	}
+
 }

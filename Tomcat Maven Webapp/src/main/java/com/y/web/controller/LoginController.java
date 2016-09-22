@@ -30,18 +30,15 @@ public class LoginController {
 	 */
 	@RequestMapping("index")
 	public String index(){
-		
 		return "login";
 	}
 	@RequestMapping("register")
 	public String register(){
-		
 		return "register";
 	}
 	
 	@RequestMapping(value="/login",method=RequestMethod.GET)
 	public String login(){
-		
 		return "login";
 	}
 	/**
@@ -51,14 +48,17 @@ public class LoginController {
 	 * @author yanhz
 	 */
 	@RequestMapping(value="/login",method=RequestMethod.POST)
-	public String login(User entity, Model model, HttpServletRequest request){
+	public String login(String  loginName,String  password, Model model, HttpServletRequest request){
 		
-//		if (Common.isEmpty(username) || Common.isEmpty(password)) {
-//			request.setAttribute("error", "用户名或密码不能为空！");
-//			return "/login";
-//		}
-		System.out.println(entity.getLoginName());
-		System.out.println(entity.getPassword());
+		if (Common.isEmpty(loginName) || Common.isEmpty(password)) {
+			request.setAttribute("error", "用户名或密码不能为空！");
+			return "/login";
+		}
+		
+		User user = userService.getUserLogin(loginName,password);
+		
+		if(user==null)
+			return "/login";
 		
 		
 		return "index";

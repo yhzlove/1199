@@ -37,4 +37,8 @@ public interface UserServiceI {
 	List<User> getAllUserPage(int currentPage, int showCount);
 
 	PageView getUserPage(PageView pageView, HttpServletRequest request);
+
+	Integer validateUserName(String loginName);
+
+	User getUserLogin(String loginName, String password);
 }

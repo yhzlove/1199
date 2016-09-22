@@ -106,6 +106,9 @@ $(function () {
 			rules:{
 // 				username:{required:!0,minlength:2},
 // 				loginName:{required:!0,minlength:2},
+				loginName:{
+					remote:"<%=request.getContextPath()%>/user/validateUserName"
+				},
 				password:{required:!0,minlength:5},
 				confirm_password:{required:!0,minlength:5,equalTo:"#password"},
 // 				email:{required:!0,email:!0},
@@ -114,7 +117,7 @@ $(function () {
 			},
 			messages:{
 				userName:{required:"请输入您的用户名",minlength:"用户名必须两个字符以上"},
-				loginName:{required:"请输入您的登入名",minlength:"登入名必须两个字符以上"},
+				loginName:{required:"请输入您的登入名",minlength:"登入名必须两个字符以上",remote: "用户名已被占用"},
 				password:{required:"请输入您的密码",minlength:"密码必须5个字符以上"},
 				confirm_password:{required:"请再次输入密码",minlength:"密码必须5个字符以上",equalTo:"两次输入的密码不一致"},
 // 				email:"请输入您的E-mail",

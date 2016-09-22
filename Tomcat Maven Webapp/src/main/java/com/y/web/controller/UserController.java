@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -33,6 +34,7 @@ public class UserController {
 	private UserServiceI userService;
 
 	private User user;
+
 
 	@Autowired(required = true)
 	public void setUserService(UserServiceI userService) {
@@ -89,7 +91,17 @@ public class UserController {
 
 		return "/user/useradd_v";
 	}
-
+	
+	@ResponseBody
+	@RequestMapping("validateUserName")
+	public String validateUserName(String loginName){
+		Integer count = userService.validateUserName(loginName);
+		if(count==0){
+			return "true";
+		}
+		return "false";
+	}
+	
 	/**
 	 * Object 可以 Map 可以
 	 * 

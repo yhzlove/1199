@@ -39,16 +39,16 @@
 		#{password,jdbcType=VARCHAR},#{description,jdbcType=VARCHAR},
 		#{locked,jdbcType=VARCHAR},
 		#{credentialsSalt,jdbcType=VARCHAR},
-		#{createTime,jdbcType=DATE}, )
+		#{createTime,jdbcType=DATE} )
 	</insert>
 	
 	<insert id="insertC" parameterType="com.y.entity.User">
 		insert into t_user (user_id,
-		user_name, login_name
+		user_name, login_name,password
 		)
 		values
 		(#{userId,jdbcType=CHAR}, #{userName,jdbcType=VARCHAR},
-		#{loginName,jdbcType=VARCHAR})
+		#{loginName,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR})
 	</insert>
 	
 	
@@ -65,4 +65,20 @@
 <!-- 		limit 0,4 -->
  		limit #{currentPage}, #{showCount} 
 	</select>
+	
+	<select id="selectByLoginName" resultType="int" parameterType="String">
+		select
+		count(1)
+		from t_user 
+ 		where login_name = #{loginName}
+	</select>
+	
+	<select id="selectUserLogin" resultType="com.y.dao.UserMapper" parameterType="String">
+		select
+		<include refid="Base_Column_List" />
+		from t_user 
+ 		where login_name = #{loginName} and password = #{password}
+ 		
+	</select>
+	
 </mapper>
