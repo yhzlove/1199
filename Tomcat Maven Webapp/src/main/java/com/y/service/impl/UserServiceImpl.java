@@ -83,7 +83,6 @@ public class UserServiceImpl implements UserServiceI {
 
 	@Override
 	public User getUserLogin(String loginName, String password) {
-		// TODO Auto-generated method stub
 		User  user = userMapper.selectUserLogin(loginName,password);
 		return user;
 	}

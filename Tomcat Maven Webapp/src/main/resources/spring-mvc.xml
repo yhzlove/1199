@@ -81,4 +81,6 @@
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
+    <!-- shiro -->
+    <import resource="spring-mvc-shiro.xml"/>
 </beans>

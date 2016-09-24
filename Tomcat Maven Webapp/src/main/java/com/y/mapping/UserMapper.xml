@@ -73,7 +73,7 @@
  		where login_name = #{loginName}
 	</select>
 	
-	<select id="selectUserLogin" resultType="com.y.dao.UserMapper" parameterType="String">
+	<select id="selectUserLogin" resultType="com.y.entity.User" parameterType="String">
 		select
 		<include refid="Base_Column_List" />
 		from t_user 
