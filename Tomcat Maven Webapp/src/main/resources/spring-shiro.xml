@@ -46,14 +46,14 @@
 
         <property name="kickoutAfter" value="false"/>
         <property name="maxSession" value="1"/>
-        <property name="kickoutUrl" value="/login.jsp"/>
+        <property name="kickoutUrl" value="/hplus/login.jsp"/>
     </bean>
     
     
 	<!-- 配置shiro的过滤器工厂类，id- shiroFilter要和我们在web.xml中配置的过滤器一致 -->
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
-		<property name="loginUrl" value="/login.jsp" />
+		<property name="loginUrl" value="/hplus/login.jsp" /><!-- 登入页面 -->
 		<property name="successUrl" value="/index.jsp" />
 		<property name="unauthorizedUrl" value="/denied.jsp" />
 		<!-- 自定义权限配置 -->

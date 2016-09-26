@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.y.entity.ResFormMap;
 
+
 public interface ResourcesMapper  {
 	public List<ResFormMap> findChildlists(ResFormMap map);
 
@@ -12,5 +13,7 @@ public interface ResourcesMapper  {
 	public void updateSortOrder(List<ResFormMap> map);
 	
 	public List<ResFormMap> findUserResourcess(String userId);
+
+	public List<ResFormMap> findByWhere(ResFormMap resFormMap);
 	
 }

@@ -4,10 +4,12 @@ package com.y.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.y.dao.CopyOfUserMapper;
 import com.y.dao.UserMapper;
 import com.y.entity.PageView;
 import com.y.entity.User;
 import com.y.service.UserServiceI;
+
 
 
 
@@ -32,7 +34,7 @@ public class UserServiceImpl implements UserServiceI {
      * 当需要使用UserMapper时，Spring就会自动注入UserMapper
      */
     @Autowired
-    private UserMapper userMapper;//注入dao
+    private CopyOfUserMapper userMapper;//注入dao
 
     @Override
     public void addUser(User user) {

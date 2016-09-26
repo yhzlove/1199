@@ -22,7 +22,8 @@ public class SysUserFilter extends PathMatchingFilter {
 
         String username = (String)SecurityUtils.getSubject().getPrincipal();
         UserFormMap userFormMap = new UserFormMap();
-		userFormMap.put("accountName", "" + username + "");
+		//userFormMap.put("accountName", "" + username + "");
+		userFormMap.setAccountName(username+ "");
         request.setAttribute("user", userMapper.findByNames(userFormMap));
         return true;
     }

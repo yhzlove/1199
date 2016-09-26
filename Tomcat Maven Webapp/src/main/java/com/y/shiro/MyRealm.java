@@ -57,7 +57,7 @@ public class MyRealm extends AuthorizingRealm {
 			// info.setRoles(user.getRolesName());
 			// 用户的角色对应的所有权限，如果只使用角色定义访问权限
 			for (ResFormMap resources : rs) {
-				info.addStringPermission(resources.get("resKey").toString());
+				info.addStringPermission(resources.getResKey());
 			}
 
 			return info;
@@ -79,10 +79,11 @@ public class MyRealm extends AuthorizingRealm {
 		String username = (String) token.getPrincipal();
 
 		UserFormMap userFormMap = new UserFormMap();
-		userFormMap.put("accountName", "" + username + "");
+		//userFormMap.put("accountName", "" + username + "");
+		userFormMap.setAccountName(username);
 		List<UserFormMap> userFormMaps = userMapper.findByNames(userFormMap);
 		if (userFormMaps.size() != 0) {
-			if ("2".equals(userFormMaps.get(0).get("locked"))) {
+			if ("2".equals(userFormMaps.get(0).getLocked())) {
 				throw new LockedAccountException(); // 帐号锁定
 			}
 			// 从数据库查询出来的账号名和密码,与用户输入的账号和密码对比
@@ -90,14 +91,14 @@ public class MyRealm extends AuthorizingRealm {
 			// 然后会自动进入这个类进行认证
 			// 交给AuthenticatingRealm使用CredentialsMatcher进行密码匹配，如果觉得人家的不好可以自定义实现
 			SimpleAuthenticationInfo authenticationInfo = new SimpleAuthenticationInfo(username, // 用户名
-					userFormMaps.get(0).get("password"), // 密码
-					ByteSource.Util.bytes(username + "" + userFormMaps.get(0).get("credentialsSalt")),// salt=username+salt
+					userFormMaps.get(0).getPassword(), // 密码
+					ByteSource.Util.bytes(username + "" + userFormMaps.get(0).getCredentialsSalt()),// salt=username+salt
 					getName() // realm name
 			);
 			// 当验证都通过后，把用户信息放在session里
 			Session session = SecurityUtils.getSubject().getSession();
 			session.setAttribute("userSession", userFormMaps.get(0));
-			session.setAttribute("userSessionId", userFormMaps.get(0).get("id"));
+			session.setAttribute("userSessionId", userFormMaps.get(0).getId());
 			return authenticationInfo;
 		} else {
 			throw new UnknownAccountException();// 没找到帐号
