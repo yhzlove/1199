@@ -59,6 +59,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script src="<%=path %>/hplus/js/bootstrap.min.js?v=3.3.6"></script>
      <script src="<%=path %>/hplus/js/plugins/pace/pace.min.js"></script>
 </body>
-
+<script type="text/javascript">
+	if ("${error}" != "") {
+			alert("${error}");
+		};</script>
 
 </html>
