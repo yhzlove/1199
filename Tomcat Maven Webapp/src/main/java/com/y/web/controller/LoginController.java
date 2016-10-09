@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.y.annotation.SystemControllerLog;
+import com.y.annotation.SystemLog;
 import com.y.entity.User;
 import com.y.service.UserServiceI;
 import com.y.util.Common;
@@ -46,7 +47,11 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value="/login",method=RequestMethod.GET)
+	@SystemControllerLog(description = "登入用户")
+	@SystemLog(description = "登入用户")
 	public String login(){
+		
+		System.err.println("----------------------------");
 		return "login";
 	}
 	/**

@@ -25,7 +25,9 @@ import java.lang.reflect.Method;
  * @since 2014-08-05 Pm 20:35 
  * @version 1.0 
  */  
+//声明这是一个切面bean
 @Aspect  
+//声明这是一个组件
 @Component  
 public  class SystemLogAspect {  
     //注入Service用于把日志保存数据库  
@@ -60,7 +62,7 @@ public  class SystemLogAspect {
         String ip = request.getRemoteAddr();  
          try {  
             //*========控制台输出=========*//  
-            System.out.println("=====前置通知开始=====");  
+            System.out.println("---------=====前置通知开始=====----------");  
             System.out.println("请求方法:" + (joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()"));  
             System.out.println("方法描述:" + getControllerMethodDescription(joinPoint));  
            // System.out.println("请求人:" + user.getName());  
@@ -78,11 +80,11 @@ public  class SystemLogAspect {
 //            log.setCreateDate(DateUtil.getCurrentDate());  
 //            //保存数据库  
 //            logService.add(log);  
-            System.out.println("=====前置通知结束=====");  
+            System.out.println("----------=====前置通知结束=====-----------");  
         }  catch (Exception e) {  
             //记录本地异常日志  
-            logger.error("==前置通知异常==");  
-            logger.error("异常信息:{}", e.getMessage());  
+            logger.error("-------==前置通知异常==-----------");  
+            logger.error("--------异常信息:{}-------", e.getMessage());  
         }  
     }  
   

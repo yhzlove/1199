@@ -140,7 +140,7 @@ public  class LogAopAction {
  			logForm.setDescription(map.get("description")+"");
  			logForm.setActionTime(time.toString());
  			logForm.setUserIP(ip);
- 			logMapper.addEntity(logForm);
+ 			//logMapper.addEntity(logForm);
             //*========控制台输出=========*//
             System.out.println("=====通知开始=====");
             System.out.println("请求方法:" + className + "." + methodName + "()");
