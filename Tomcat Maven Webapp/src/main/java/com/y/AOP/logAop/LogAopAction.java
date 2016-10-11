@@ -1,14 +1,7 @@
-package com.y.logAop;
+package com.y.AOP.logAop;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
-
-
-
-
-
-
-
 
 import javax.inject.Inject;
 
@@ -23,7 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import com.y.annotation.SystemLog;
+import com.y.AOP.annotation.SystemLog;
 import com.y.dao.LogMapper;
 import com.y.entity.LogFormMap;
 import com.y.util.Common;
@@ -43,7 +36,7 @@ public  class LogAopAction {
      @Inject
  	private LogMapper logMapper;
      //Controller层切点
-    @Pointcut("@annotation(com.y.annotation.SystemLog)")
+    @Pointcut("@annotation(com.y.AOP.annotation.SystemLog)")
      public  void controllerAspect() {
     }
     

@@ -15,8 +15,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.y.annotation.SystemControllerLog;
-import com.y.annotation.SystemLog;
+import com.y.AOP.annotation.SystemControllerLog;
+import com.y.AOP.annotation.SystemLog;
 import com.y.entity.User;
 import com.y.service.UserServiceI;
 import com.y.util.Common;

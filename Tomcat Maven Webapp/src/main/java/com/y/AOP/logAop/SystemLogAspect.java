@@ -1,4 +1,4 @@
-package com.y.annotation;  
+package com.y.AOP.logAop;  
   
 //import com.model.Log;  
 //import com.model.User;  
@@ -11,83 +11,76 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;  
 import org.slf4j.Logger;  
 import org.slf4j.LoggerFactory;  
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;  
 import org.springframework.web.context.request.RequestContextHolder;  
 import org.springframework.web.context.request.ServletRequestAttributes;  
+
+import com.y.AOP.annotation.SystemControllerLog;
+import com.y.AOP.annotation.SystemServiceLog;
+
 import javax.annotation.Resource;  
 import javax.servlet.http.HttpServletRequest;  
 import javax.servlet.http.HttpSession;  
+
 import java.lang.reflect.Method;  
   
 /** 
  * 切点类 
- * @author tiangai 
- * @since 2014-08-05 Pm 20:35 
- * @version 1.0 
- */  
-//声明这是一个切面bean
+ * @Aspect 来定义一个切面；
+ * @Component是配合<context:component-scan/>，不然扫描不到；声明这是一个组件
+ * @Order定义了该切面切入的顺序，因为在同一个切点，可能同时存在多个切面，那么在这多个切面之间就存在一个执行顺序的问题。
+ * 该例子是一个切换数据源的切面，那么他应该在 事务处理 切面之前执行，所以我们使用 @Order(0) 来确保先切换数据源，然后加入事务处理。
+ * @Order的参数越小，优先级越高，默认的优先级最低：
+ * 
+ */
 @Aspect  
-//声明这是一个组件
-@Component  
+@Component
 public  class SystemLogAspect {  
-    //注入Service用于把日志保存数据库  
-   // @Resource  
-     //private LogService logService;  
+    
     //本地异常日志记录对象  
      private  static  final Logger logger = LoggerFactory.getLogger(SystemLogAspect. class);  
   
-    //Service层切点  
-    @Pointcut("@annotation(com.y.annotation.SystemServiceLog)")  
-     public  void serviceAspect() {  
-    }  
-  
     //Controller层切点  
-    @Pointcut("@annotation(com.y.annotation.SystemControllerLog)")  
+    @Pointcut("@annotation(com.y.AOP.annotation.SystemControllerLog)")  
      public  void controllerAspect() {  
     }  
-  
-    /** 
-     * 前置通知 用于拦截Controller层记录用户的操作 
-     * 
-     * @param joinPoint 切点 
-     */  
+    
+    /**
+     * Spring 切面可应用的 5 种通知类型：
+     * 	Before——在方法调用之前调用通知
+     *	After——在方法完成之后调用通知，无论方法执行成功与否
+     *	After-returning——在方法执行成功之后调用通知
+     *	After-throwing——在方法抛出异常后进行通知
+     *	Around——通知包裹了被通知的方法，在被通知的方法调用之前和调用之后执行自定义的行为
+     */
     @Before("controllerAspect()")  
      public  void doBefore(JoinPoint joinPoint) {  
-  
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();  
-        HttpSession session = request.getSession();  
-        //读取session中的用户  
-        //User user = (User) session.getAttribute(WebConstants.CURRENT_USER);  
-        //请求的IP  
-        String ip = request.getRemoteAddr();  
-         try {  
-            //*========控制台输出=========*//  
-            System.out.println("---------=====前置通知开始=====----------");  
-            System.out.println("请求方法:" + (joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()"));  
-            System.out.println("方法描述:" + getControllerMethodDescription(joinPoint));  
-           // System.out.println("请求人:" + user.getName());  
-            System.out.println("请求IP:" + ip);  
-            //*========数据库日志=========*//  
-//            Log log = SpringContextHolder.getBean("logxx");  
-//            log.setDescription(getControllerMethodDescription(joinPoint));  
-//            log.setMethod((joinPoint.getTarget().getClass().getName() + "." + joinPoint.getSignature().getName() + "()"));  
-//            log.setType("0");  
-//            log.setRequestIp(ip);  
-//            log.setExceptionCode( null);  
-//            log.setExceptionDetail( null);  
-//            log.setParams( null);  
-//            log.setCreateBy(user);  
-//            log.setCreateDate(DateUtil.getCurrentDate());  
-//            //保存数据库  
-//            logService.add(log);  
-            System.out.println("----------=====前置通知结束=====-----------");  
-        }  catch (Exception e) {  
-            //记录本地异常日志  
-            logger.error("-------==前置通知异常==-----------");  
-            logger.error("--------异常信息:{}-------", e.getMessage());  
-        }  
-    }  
-  
+ 
+            System.out.println("---------=====Before前置通知开始=====----------");  
+ 
+    }
+    
+    @After("controllerAspect()")  
+    public  void doAfter(JoinPoint joinPoint) {  
+
+           System.out.println("---------=====After前置通知开始=====----------");  
+
+   }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     /** 
      * 异常通知 用于拦截service层记录异常日志 
      * 

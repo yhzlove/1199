@@ -15,14 +15,16 @@
      http://www.springframework.org/schema/aop/spring-aop-4.1.xsd"
 	default-lazy-init="false">
 	
-
-	<!-- 启动对@AspectJ注解的支持 -->  
+	<!-- Spring的AOP为动态AOP，实现的技术为：JDK提供的动态代理技术 和 CGLIB(动态字节码增强技术)。尽管实现技术不一样，但都是基于代理模式，都是生成一个代理对象 -->
+	
+	<!--①JDK -->
 <!-- 	<aop:aspectj-autoproxy/>  -->
-	<!-- 激活组件扫描功能,在包cn.ysh.studio.spring.aop及其子包下面自动扫描通过注解配置的组件 -->
-	<context:component-scan base-package="com.y.annotation"/>
-	<context:component-scan base-package="com.y.logAop"/>
-	<!--通知spring使用cglib而不是jdk的来生成代理方法 AOP可以拦截到Controller-->  
+	
+	<!--②使用cglib来生成代理方法 AOP可以拦截到Controller-->  
  	<aop:aspectj-autoproxy proxy-target-class="true" />
+ 	
+ 	<!--  -->
+	<context:component-scan base-package="com.y.AOP.logAop"/>
 
 	
 </beans>
