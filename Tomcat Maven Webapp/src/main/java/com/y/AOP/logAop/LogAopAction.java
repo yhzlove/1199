@@ -1,4 +1,5 @@
 package com.y.AOP.logAop;
+
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
@@ -21,38 +22,41 @@ import com.y.dao.LogMapper;
 import com.y.entity.LogFormMap;
 import com.y.util.Common;
 
-
 /**
  * 切点类
+ * 
  * @author LJN
  * @since 2015-05-05 Pm 20:35
  * @version 1.0
  */
 @Aspect
 @Component
-public  class LogAopAction {
-    //本地异常日志记录对象
-     private  static  final Logger logger = LoggerFactory.getLogger(LogAopAction. class);
-     @Inject
- 	private LogMapper logMapper;
-     //Controller层切点
-    @Pointcut("@annotation(com.y.AOP.annotation.SystemLog)")
-     public  void controllerAspect() {
-    }
-    
-    /**
-     * 操作异常记录
-     *@descript
-     *@param point
-     *@param e
-     *@author LJN
-     *@date 2015年5月5日
-     *@version 1.0
-     */
-    @AfterThrowing(pointcut = "controllerAspect()", throwing = "e")  
-    public  void doAfterThrowing(JoinPoint point, Throwable e) {  
-    	LogFormMap logForm = new LogFormMap();
-		 Map<String, Object> map = null;
+public class LogAopAction {
+	// 本地异常日志记录对象
+	private static final Logger logger = LoggerFactory
+			.getLogger(LogAopAction.class);
+	@Inject
+	private LogMapper logMapper;
+
+	// Controller层切点
+	@Pointcut("@annotation(com.y.AOP.annotation.SystemLog)")
+	public void controllerAspect() {
+	}
+
+	/**
+	 * 操作异常记录
+	 *
+	 * @descript
+	 * @param point
+	 * @param e
+	 * @author LJN
+	 * @date 2015年5月5日
+	 * @version 1.0
+	 */
+	@AfterThrowing(pointcut = "controllerAspect()", throwing = "e")
+	public void doAfterThrowing(JoinPoint point, Throwable e) {
+		LogFormMap logForm = new LogFormMap();
+		Map<String, Object> map = null;
 		String user = null;
 		String ip = null;
 		try {
@@ -61,7 +65,7 @@ public  class LogAopAction {
 			ip = "无法获取登录用户Ip";
 		}
 		try {
-			map=getControllerMethodDescription(point);
+			map = getControllerMethodDescription(point);
 			// 登录名
 			user = SecurityUtils.getSubject().getPrincipal().toString();
 			if (Common.isEmpty(user)) {
@@ -70,11 +74,12 @@ public  class LogAopAction {
 		} catch (Exception ee) {
 			user = "无法获取登录用户信息！";
 		}
-		
-    	logForm.setAccountName(user);
-		logForm.setModule(map.get("module")+"");
-		logForm.setMethods("<font color=\"red\">执行方法异常:-->"+map.get("methods")+"</font>");
-		logForm.setDescription("<font color=\"red\">执行方法异常:-->"+e+"</font>");
+
+		logForm.setAccountName(user);
+		logForm.setModule(map.get("module") + "");
+		logForm.setMethods("<font color=\"red\">执行方法异常:-->"
+				+ map.get("methods") + "</font>");
+		logForm.setDescription("<font color=\"red\">执行方法异常:-->" + e + "</font>");
 		logForm.setActionTime("0");
 		logForm.setUserIP(ip);
 		try {
@@ -82,20 +87,22 @@ public  class LogAopAction {
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
-    }
-    /**
-     * 前置通知 用于拦截Controller层记录用户的操作
-     *
-     * @param joinPoint 切点
-     */
-    @Around("controllerAspect()")
-     public Object doController(ProceedingJoinPoint point) {
-    	Object result = null;
+	}
+
+	/**
+	 * 前置通知 用于拦截Controller层记录用户的操作
+	 *
+	 * @param joinPoint
+	 *            切点
+	 */
+	@Around("controllerAspect()")
+	public Object doController(ProceedingJoinPoint point) {
+		Object result = null;
 		// 执行方法名
 		String methodName = point.getSignature().getName();
 		String className = point.getTarget().getClass().getSimpleName();
 		LogFormMap logForm = new LogFormMap();
-		 Map<String, Object> map = null;
+		Map<String, Object> map = null;
 		String user = null;
 		Long start = 0L;
 		Long end = 0L;
@@ -117,64 +124,71 @@ public  class LogAopAction {
 		}
 		// 当前用户
 		try {
-			map=getControllerMethodDescription(point);
+			map = getControllerMethodDescription(point);
 			// 执行方法所消耗的时间
 			start = System.currentTimeMillis();
 			result = point.proceed();
 			end = System.currentTimeMillis();
-		    time = end - start;
+			time = end - start;
 		} catch (Throwable e) {
 			throw new RuntimeException(e);
 		}
-         try {
- 			logForm.setAccountName(user);
- 			logForm.setModule(map.get("module")+"");
- 			logForm.setMethods(map.get("methods")+"");
- 			logForm.setDescription(map.get("description")+"");
- 			logForm.setActionTime(time.toString());
- 			logForm.setUserIP(ip);
- 			//logMapper.addEntity(logForm);
-            //*========控制台输出=========*//
-            System.out.println("=====通知开始=====");
-            System.out.println("请求方法:" + className + "." + methodName + "()");
-            System.out.println("方法描述:" + map);
-            System.out.println("请求IP:" + ip);
-            System.out.println("=====通知结束=====");
-        }  catch (Exception e) {
-            //记录本地异常日志
-            logger.error("====通知异常====");
-            logger.error("异常信息:{}", e.getMessage());
-        }
-         return result;
-    }
-    /**
-     * 获取注解中对方法的描述信息 用于Controller层注解
-     *
-     * @param joinPoint 切点
-     * @return 方法描述
-     * @throws Exception
-     */
-     @SuppressWarnings("rawtypes")
-	public Map<String, Object> getControllerMethodDescription(JoinPoint joinPoint)  throws Exception {
-    	 Map<String, Object> map = new HashMap<String, Object>();
-    	 String targetName = joinPoint.getTarget().getClass().getName();
-        String methodName = joinPoint.getSignature().getName();
-        Object[] arguments = joinPoint.getArgs();
-        Class targetClass = Class.forName(targetName);
-        Method[] methods = targetClass.getMethods();
-         for (Method method : methods) {
-             if (method.getName().equals(methodName)) {
-                Class[] clazzs = method.getParameterTypes();
-                 if (clazzs.length == arguments.length) {
-                	 map.put("module", method.getAnnotation(SystemLog.class).module());
-                	 map.put("methods", method.getAnnotation(SystemLog.class).methods());
-                	 String de = method.getAnnotation(SystemLog.class).description();
-                	 if(Common.isEmpty(de))de="执行成功!";
-                	 map.put("description", de);
-                     break;
-                }
-            }
-        }
-         return map;
-    }
+		try {
+			logForm.setAccountName(user);
+			logForm.setModule(map.get("module") + "");
+			logForm.setMethods(map.get("methods") + "");
+			logForm.setDescription(map.get("description") + "");
+			logForm.setActionTime(time.toString());
+			logForm.setUserIP(ip);
+			logMapper.addEntity(logForm);
+			// *========控制台输出=========*//
+			System.out.println("=====通知开始=====");
+			System.out.println("请求方法:" + className + "." + methodName + "()");
+			System.out.println("方法描述:" + map);
+			System.out.println("请求IP:" + ip);
+			System.out.println("=====通知结束=====");
+		} catch (Exception e) {
+			// 记录本地异常日志
+			logger.error("====通知异常====");
+			logger.error("异常信息:{}", e.getMessage());
+		}
+		return result;
+	}
+
+	/**
+	 * 获取注解中对方法的描述信息 用于Controller层注解
+	 *
+	 * @param joinPoint
+	 *            切点
+	 * @return 方法描述
+	 * @throws Exception
+	 */
+	@SuppressWarnings("rawtypes")
+	public Map<String, Object> getControllerMethodDescription(
+			JoinPoint joinPoint) throws Exception {
+		Map<String, Object> map = new HashMap<String, Object>();
+		String targetName = joinPoint.getTarget().getClass().getName();
+		String methodName = joinPoint.getSignature().getName();
+		Object[] arguments = joinPoint.getArgs();
+		Class targetClass = Class.forName(targetName);
+		Method[] methods = targetClass.getMethods();
+		for (Method method : methods) {
+			if (method.getName().equals(methodName)) {
+				Class[] clazzs = method.getParameterTypes();
+				if (clazzs.length == arguments.length) {
+					map.put("module", method.getAnnotation(SystemLog.class)
+							.module());
+					map.put("methods", method.getAnnotation(SystemLog.class)
+							.methods());
+					String de = method.getAnnotation(SystemLog.class)
+							.description();
+					if (Common.isEmpty(de))
+						de = "执行成功!";
+					map.put("description", de);
+					break;
+				}
+			}
+		}
+		return map;
+	}
 }

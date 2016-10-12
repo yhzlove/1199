@@ -8,27 +8,30 @@ public class LogFormMap {
 //	logForm.put("description","<font color=\"red\">执行方法异常:-->"+e+"</font>");
 //	logForm.put("actionTime","0");
 //	logForm.put("userIP",ip);
-	
-	private String accountName;
-	private String module;
-	private String methods;
-	private String description;
-	private String actionTime;
-	private String userIP;
-//	private String module;
-//	private String module;
-	
+	private String id;  			//ID
+	private String accountName;  	//用户名
+	private String module;			//模块
+	private String methods;			//方法
+	private String description;		//描述
+	private String actionTime;		//执行方法所消耗的时间
+	private String userIP;			//用户IP地址
+	private String operTime;
 	
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
+	public String getOperTime() {
+		return operTime;
+	}
+	public void setOperTime(String operTime) {
+		this.operTime = operTime;
+	}
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
 	public String getAccountName() {
 		return accountName;
 	}

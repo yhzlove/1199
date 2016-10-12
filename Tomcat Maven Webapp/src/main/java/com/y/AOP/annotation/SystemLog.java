@@ -13,7 +13,7 @@ public  @interface SystemLog {
   
 	String module()  default "";  //模块名称 系统管理-用户管理－列表页面
 	String methods()  default "";  //新增用户
-    String description()  default "";  //
+    String description()  default "";  //描述
   
   
 }  

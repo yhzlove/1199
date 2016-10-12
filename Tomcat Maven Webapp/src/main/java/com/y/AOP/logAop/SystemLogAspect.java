@@ -46,6 +46,9 @@ public  class SystemLogAspect {
      public  void controllerAspect() {  
     }  
     
+    @Pointcut("@annotation(com.y.AOP.annotation.SystemServiceLog)")  
+    public  void serviceAspect() {  
+   } 
     /**
      * Spring 切面可应用的 5 种通知类型：
      * 	Before——在方法调用之前调用通知

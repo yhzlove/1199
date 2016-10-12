@@ -62,7 +62,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript">
 	if ("${error}" != "") {
 			alert("${error}");
-		};
-</script>
+		};</script>
 
 </html>

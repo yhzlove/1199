@@ -39,6 +39,7 @@ public class LoginController {
 	 */
 	@RequestMapping("index")
 	public String index(){
+		System.err.println("-------------index---------------");
 		return "login";
 	}
 	@RequestMapping("register")
@@ -47,12 +48,12 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value="/login",method=RequestMethod.GET)
-	@SystemControllerLog(description = "登入用户")
+	//@SystemControllerLog(description = "登入用户")
 	@SystemLog(description = "登入用户")
 	public String login(){
 		
-		System.err.println("----------------------------");
-		return "login";
+		System.err.println("--------------login--------------");
+		return "loginp";
 	}
 	/**
 	 * 
