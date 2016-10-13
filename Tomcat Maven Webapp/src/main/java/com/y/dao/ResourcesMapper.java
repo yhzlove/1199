@@ -15,5 +15,7 @@ public interface ResourcesMapper  {
 	public List<ResFormMap> findUserResourcess(String userId);
 
 	public List<ResFormMap> findByWhere(ResFormMap resFormMap);
+
+	public List<ResFormMap> getAllRes();
 	
 }

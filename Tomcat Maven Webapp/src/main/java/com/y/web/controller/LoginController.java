@@ -1,5 +1,8 @@
 package com.y.web.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.shiro.SecurityUtils;
@@ -14,12 +17,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.y.AOP.annotation.SystemControllerLog;
 import com.y.AOP.annotation.SystemLog;
+import com.y.entity.ResFormMap;
+import com.y.entity.TreeObject;
 import com.y.entity.User;
+import com.y.service.ResServiceI;
 import com.y.service.UserServiceI;
 import com.y.util.Common;
+import com.y.util.TreeUtil;
 
 @Controller
 @RequestMapping("/")
@@ -29,6 +38,13 @@ public class LoginController {
 	@Autowired(required=true)
 	public void setUserService(UserServiceI userService) {
 		this.userService = userService;
+	}
+	
+	
+	private ResServiceI resService;
+	@Autowired(required=true)
+	public void setResService(ResServiceI resService) {
+		this.resService = resService;
 	}
 	
 	/**
@@ -42,6 +58,7 @@ public class LoginController {
 		System.err.println("-------------index---------------");
 		return "login";
 	}
+	
 	@RequestMapping("register")
 	public String register(){
 		return "register";
@@ -118,7 +135,32 @@ public class LoginController {
 //			return "/login";
 //		
 //		
-		return "index";
+		//return "index";
+		return "redirect:index";
 	}
 	
+	
+	
+	@RequestMapping("index")
+	public String index(Model model) throws Exception {
+		// 获取登录的bean
+		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
+//		UserFormMap userFormMap = (UserFormMap)Common.findUserSession(request);
+//		ResFormMap resFormMap = new ResFormMap();
+//		resFormMap.put("userId", userFormMap.get("id"));
+//		List<ResFormMap> mps = resourcesMapper.findRes(resFormMap);
+		//List<ResFormMap> mps = resourcesMapper.findByWhere(new ResFormMap());
+		List<ResFormMap> mps = resService.getAllRes();
+		List<TreeObject> list = new ArrayList<TreeObject>();
+		for (ResFormMap map : mps) {
+			TreeObject ts = new TreeObject();
+			Common.flushObject(ts, map);
+			list.add(ts);
+		}
+		TreeUtil treeUtil = new TreeUtil();
+		List<TreeObject> ns = treeUtil.getChildTreeObjects(list, 0);
+		model.addAttribute("list", ns);
+		
+		return "index";
+	}
 }

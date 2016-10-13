@@ -12,6 +12,7 @@ public class ResFormMap {
 	private String  id;
 	private String  name;
 	private String  parentId;
+	private String  parentName;
 	private String  resKey;
 	private String  type;
 	private String  resUrl;
@@ -52,6 +53,12 @@ public class ResFormMap {
 	}
 	public void setType(String type) {
 		this.type = type;
+	}
+	public String getParentName() {
+		return parentName;
+	}
+	public void setParentName(String parentName) {
+		this.parentName = parentName;
 	}
 	public String getResUrl() {
 		return resUrl;

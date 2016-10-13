@@ -37,10 +37,65 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <ul class="nav" id="side-menu">
                     <li class="nav-header">
                         
-                        <div class="logo-element">H+
-                        </div>
+                        <div class="logo-element">H+</div>
                     </li>
-                    
+                    <c:forEach var="key" items="${list}" varStatus="s">
+						<!-- <li class="active"> 某一项展开-->
+						<li <c:if test="${s.index==0}">class="active"</c:if>>
+							<a href="javascript:void(0)"
+							<c:if test="${s.index==0}">class="active"</c:if>> 
+							<c:if test="${s.index==0}">
+									<i class="fa fa-dashboard icon"> <b class="bg-danger"></b></i>
+							</c:if> 
+							<c:if test="${s.index==1}">
+									<i class="fa fa-pencil-square icon"> <b class="bg-warning"></b></i>
+							</c:if> 
+							<c:if test="${s.index==2}">
+									<i class="fa fa-columns icon"> <b class="bg-primary"></b></i>
+							</c:if>
+							<c:if test="${s.index==3}">
+									<i class="fa fa-book icon"> <b class="bg-info"></b></i>
+							</c:if> 
+							<c:if test="${s.index==4}">
+									<i class="fa fa-th-list icon"> <b class="bg-success"></b></i>
+							</c:if> 
+							<span class="pull-right">
+								<i class="fa fa-angle-down text"></i> 
+								<i class="fa fa-angle-up text-active"></i>
+							</span> 
+							<span>${key.name}</span>
+						</a>
+
+							<ul class="nav lt">
+								<c:forEach var="kc" items="${key.children}">
+									<li class="active"><a
+										href="javascript:void(0)"
+										class="active" nav-n="${key.name},${kc.name},${kc.resUrl}?id=${kc.id}"> <i class="fa fa-angle-right"></i> <span>${kc.name}</span>
+									</a></li>
+								</c:forEach>
+							</ul></li>
+					</c:forEach>
+                    <li>
+                    	<a href= "#">
+                    		<!-- 图标 -->
+                    		<i class="fa fa-home"></i>
+                    		<span class="nav-label">系统管理</span>
+                    		<!-- > -->
+                    		<span class="fa arrow"></span>
+                    	</a>
+                    	<!-- 第二层 -->
+                    	<ul class="nav nav-second-level">
+                    		<li>
+                                <a class="J_menuItem" href="<%=path %>/user/list" >用户管理</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="index_v1.html" >角色管理</a>
+                            </li>
+                            <li>
+                                <a class="J_menuItem" href="index_v1.html" >菜单管理</a>
+                            </li>
+                    	</ul>
+                    </li>
                     <li>
                     	<a href= "#">
                     		<!-- 图标 -->

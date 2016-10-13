@@ -82,4 +82,10 @@
 		select * from ly_resources 
 		
 	</select>
+	
+	<select id="getAllRes" resultType="com.y.entity.ResFormMap">
+		select
+		<include refid="selectId" />
+		from ly_resources
+	</select>
 </mapper>
