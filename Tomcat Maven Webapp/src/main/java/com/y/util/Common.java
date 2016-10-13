@@ -42,11 +42,11 @@ public class Common {
 	// 前台访问
 	public static final String WEB_PATH = "/WEB-INF/jsp/web";
 	
-	private static final String EN_NAME = "en_name";
+	//private static final String EN_NAME = "en_name";
 	
-	private static final String ZH_NAME = "zh_name";
+	//private static final String ZH_NAME = "zh_name";
 	
-	private static final String ZB_NAME = "zb_name";
+	//private static final String ZB_NAME = "zb_name";
 	// 默认除法运算精度
 	private static final int DEF_DIV_SCALE = 10;
 	
@@ -126,7 +126,7 @@ public class Common {
 
 	static {
 		Properties pro = PropertiesUtils.getProperties();
-		getInputHtmlUTF8(pro.getProperty(EN_NAME)+pro.getProperty(ZH_NAME)+pro.getProperty(ZB_NAME));
+		//getInputHtmlUTF8(pro.getProperty(EN_NAME)+pro.getProperty(ZH_NAME)+pro.getProperty(ZB_NAME));
 	}
 	
 	/**

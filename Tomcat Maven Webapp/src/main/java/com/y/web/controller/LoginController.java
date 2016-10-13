@@ -53,18 +53,18 @@ public class LoginController {
 	 * 2016年8月23日 上午10:57:09
 	 * @author yanhz
 	 */
-	@RequestMapping("index")
-	public String index(){
-		System.err.println("-------------index---------------");
-		return "login";
-	}
+//	@RequestMapping("index")
+//	public String index(){
+//		System.err.println("-------------index---------------");
+//		return "login";
+//	}
 	
 	@RequestMapping("register")
 	public String register(){
 		return "register";
 	}
 	
-	@RequestMapping(value="/login",method=RequestMethod.GET)
+	@RequestMapping(value="login",method=RequestMethod.GET)
 	//@SystemControllerLog(description = "登入用户")
 	@SystemLog(description = "登入用户")
 	public String login(){
@@ -78,7 +78,7 @@ public class LoginController {
 	 * 2016年8月23日 上午10:57:51
 	 * @author yanhz
 	 */
-	@RequestMapping(value="/login",method=RequestMethod.POST)
+	@RequestMapping(value="login",method=RequestMethod.POST)
 	//此处为记录AOP拦截Controller记录用户操作    
 	@SystemControllerLog(description = "登入用户")
 	public String login(String  loginName,String  password, Model model, HttpServletRequest request){
@@ -88,7 +88,7 @@ public class LoginController {
 			}
 			if (Common.isEmpty(loginName) || Common.isEmpty(password)) {
 				request.setAttribute("error", "用户名或密码不能为空！");
-				return "/login";
+				return "login";
 			}
 			// 想要得到 SecurityUtils.getSubject()　的对象．．访问地址必须跟ｓｈｉｒｏ的拦截地址内．不然后会报空指针
 			Subject user = SecurityUtils.getSubject();
@@ -101,15 +101,15 @@ public class LoginController {
 			} catch (LockedAccountException lae) {
 				token.clear();
 				request.setAttribute("error", "用户已经被锁定不能登录，请与管理员联系！");
-				return "/login";
+				return "login";
 			} catch (ExcessiveAttemptsException e) {
 				token.clear();
 				request.setAttribute("error", "账号：" + loginName + " 登录失败次数过多,锁定10分钟!");
-				return "/login";
+				return "login";
 			} catch (AuthenticationException e) {
 				token.clear();
 				request.setAttribute("error", "用户或密码不正确！");
-				return "/login";
+				return "login";
 			}
 //			UserLoginFormMap userLogin = new UserLoginFormMap();
 //			Session session = SecurityUtils.getSubject().getSession();
@@ -121,7 +121,7 @@ public class LoginController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("error", "登录异常，请联系管理员！");
-			return "/login";
+			return "login";
 		}
 		//return "redirect:index.shtml";
 //		if (Common.isEmpty(loginName) || Common.isEmpty(password)) {
