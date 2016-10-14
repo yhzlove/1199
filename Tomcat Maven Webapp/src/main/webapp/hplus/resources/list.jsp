@@ -36,7 +36,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
   <body class="gray-bg">
   	<div class="wrapper wrapper-content animated fadeInRight">
-  		<input type="button" value="新增测试" id="adduser"><input type="button" value="新增测试_v" id="adduser_v"><br/>
+  		<input type="button" class="btn btn-primary marR10" value="新增测试" id="adduser">
+  		<input type="button" class="btn btn-primary marR10" value="新增测试_v" id="adduser_v"><br/>
   		ID:<input type="text" value="" id="userId">
   		用户名:<input type="text" value="" id="userName">
   		账号:<input type="text" value="" id="loginName">
@@ -61,7 +62,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
     </div>
     <script type="text/javascript">
-    	var data = '${page}';
+    	
 		var addpage = null;
 		$(function () {
 			/* 

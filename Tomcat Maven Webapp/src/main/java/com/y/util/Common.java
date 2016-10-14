@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.net.JarURLConnection;
@@ -478,42 +479,50 @@ public class Common {
 		Class<?> clazz = t.getClass();
 		for (; clazz != Object.class; clazz = clazz.getSuperclass()) {
 			try {
-//				Field[] fields = clazz.getDeclaredFields();
-//
-//				for (int i = 0; i < fields.length; i++) {
-//					String name = fields[i].getName(); // 获取属性的名字
-//					Object value = params.get(name);
-//					if (value != null && !"".equals(value)) {
-//						// 注意下面这句，不设置true的话，不能修改private类型变量的值
-//						fields[i].setAccessible(true);
-//						fields[i].set(t, value);
-//					}
-//				}
-				java.lang.reflect.Method[] method = clazz.getClass()
-						.getDeclaredMethods();// 获取对象所有方法
-				for (java.lang.reflect.Method m : method) {
-					System.out.println(m.getName());
-					if (m.getName().startsWith("get")) {// 获取get方法
-						Object value = m.invoke(clazz);// 执行
-						if (value != null && !"".equals(value)) {
-							// 注意下面这句，不设置true的话，不能修改private类型变量的值
-//							fields[i].setAccessible(true);
-//							fields[i].set(t, value);
-						}
-//						if (o == null || "".equals(o.toString())) {
-//							System.out.println("aaa");
-//						} else {
-//							System.out.println(o.toString());// 输出相应的属性值
-//						}
+				Field[] fields = clazz.getDeclaredFields();
+
+				for (int i = 0; i < fields.length; i++) {
+					String name = fields[i].getName(); // 获取属性的名字
+					Object value = getFieldValueByName(name,params);
+					if (value != null && !"".equals(value)) {
+						// 注意下面这句，不设置true的话，不能修改private类型变量的值
+						fields[i].setAccessible(true);
+						fields[i].set(t, value);
 					}
 				}
 			} catch (Exception e) {
+				System.out.println("-==========-");
+				e.printStackTrace();
 			}
 
 		}
 		return t;
 	}
-
+	
+	/** 
+	* 使用反射根据属性名称获取属性值  
+	*  
+	* @param  fieldName 属性名称 
+	* @param  o 操作对象 
+	* @return Object 属性值 
+	*/  
+	  
+	private static Object getFieldValueByName(String fieldName, Object o)   
+	{      
+	   try   
+	   {      
+	       String firstLetter = fieldName.substring(0, 1).toUpperCase();      
+	       String getter = "get" + firstLetter + fieldName.substring(1);      
+	       Method method = o.getClass().getMethod(getter, new Class[] {});      
+	       Object value = method.invoke(o, new Object[] {});      
+	       return value;      
+	   } catch (Exception e)   
+	   {      
+	       System.out.println("属性不存在");      
+	       return null;      
+	   }      
+	}    
+	
 	/**
 	 * html转议
 	 * 

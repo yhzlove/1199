@@ -153,9 +153,11 @@ public class LoginController {
 		List<ResFormMap> mps = resService.getAllRes();
 		List<TreeObject> list = new ArrayList<TreeObject>();
 		for (ResFormMap map : mps) {
-			TreeObject ts = new TreeObject();
-			Common.flushObject(ts, map);
-			list.add(ts);
+			if(map.getIsRes()!=null&&map.getIsRes()==1){
+				TreeObject ts = new TreeObject();
+				Common.flushObject(ts, map);
+				list.add(ts);
+			}
 		}
 		TreeUtil treeUtil = new TreeUtil();
 		List<TreeObject> ns = treeUtil.getChildTreeObjects(list, 0);

@@ -9,26 +9,29 @@ package com.y.entity;
 
 public class ResFormMap {
 		
-	private String  id;
+//	private String  id;
 	private String  name;
-	private String  parentId;
+//	private String  parentId;
 	private String  parentName;
 	private String  resKey;
 	private String  type;
 	private String  resUrl;
-	private String  level;
+//	private String  level;
 	private String  icon;
-	private String  ishide;
+//	private String  ishide;
 	private String  description;
+	private Integer id;
+	private Integer parentId;
+	private Integer level;
+	private Integer ishide;
+	private Integer isRes;//
 	
 	
-	
-	
-	public String getId() {
-		return id;
+	public Integer getIsRes() {
+		return isRes;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setIsRes(Integer isRes) {
+		this.isRes = isRes;
 	}
 	public String getName() {
 		return name;
@@ -36,11 +39,11 @@ public class ResFormMap {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getParentId() {
-		return parentId;
+	public String getParentName() {
+		return parentName;
 	}
-	public void setParentId(String parentId) {
-		this.parentId = parentId;
+	public void setParentName(String parentName) {
+		this.parentName = parentName;
 	}
 	public String getResKey() {
 		return resKey;
@@ -54,23 +57,11 @@ public class ResFormMap {
 	public void setType(String type) {
 		this.type = type;
 	}
-	public String getParentName() {
-		return parentName;
-	}
-	public void setParentName(String parentName) {
-		this.parentName = parentName;
-	}
 	public String getResUrl() {
 		return resUrl;
 	}
 	public void setResUrl(String resUrl) {
 		this.resUrl = resUrl;
-	}
-	public String getLevel() {
-		return level;
-	}
-	public void setLevel(String level) {
-		this.level = level;
 	}
 	public String getIcon() {
 		return icon;
@@ -78,18 +69,40 @@ public class ResFormMap {
 	public void setIcon(String icon) {
 		this.icon = icon;
 	}
-	public String getIshide() {
-		return ishide;
-	}
-	public void setIshide(String ishide) {
-		this.ishide = ishide;
-	}
 	public String getDescription() {
 		return description;
 	}
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public Integer getParentId() {
+		return parentId;
+	}
+	public void setParentId(Integer parentId) {
+		this.parentId = parentId;
+	}
+	public Integer getLevel() {
+		return level;
+	}
+	public void setLevel(Integer level) {
+		this.level = level;
+	}
+	public Integer getIshide() {
+		return ishide;
+	}
+	public void setIshide(Integer ishide) {
+		this.ishide = ishide;
+	}
+	
+	
+	
+	
 	
 	
 	

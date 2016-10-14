@@ -19,7 +19,8 @@
 		resUrl,
 		level,
 		icon,
-		description
+		description,
+		isRes
 	</sql>
 	<select id="findChildlists" resultType="com.y.entity.ResFormMap">
 		SELECT

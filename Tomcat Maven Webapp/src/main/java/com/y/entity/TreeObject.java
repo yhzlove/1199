@@ -22,6 +22,20 @@ public class TreeObject {
 	private String description;
 	private String icon;
 	private Integer ishide;
+	
+//	private String id;
+//	private String parentId;
+//	private String level;
+//	private String ishide;
+	private Integer isRes;//
+	
+	
+	public Integer getIsRes() {
+		return isRes;
+	}
+	public void setIsRes(Integer isRes) {
+		this.isRes = isRes;
+	}
 	private List<TreeObject> children = new ArrayList<TreeObject>();
 	public Integer getId() {
 		return id;
