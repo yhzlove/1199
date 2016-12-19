@@ -1,7 +1,13 @@
 package com.y.test;
 
 import java.util.concurrent.atomic.AtomicInteger;  
-
+/**
+ * 原子计数器测试
+ * @author yanhz
+ * 2016年10月20日 上午9:05:02
+ * <P>Title:FastIncreaseInteger</P>
+ * <P>TODO</P>
+ */
 public class FastIncreaseInteger {  
     private AtomicInteger num =new AtomicInteger();  
     public int getIncreaseInt(){  

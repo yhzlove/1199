@@ -20,3 +20,29 @@ PageHelper  http://www.2cto.com/kf/201510/447839.html
 
 登入頁面訪問一下   后台走两遍  --  原因:shiro资源文件验证配置不正确
 
+2016-10-27  上传
+	IllegalArgumentException 不正确/不合法的参数异常。
+	http://yingzhuo.iteye.com/blog/2001607  用了apache-shiro后，HttpSession.getServletContext() API无法正常工作了
+	
+2016-11-15 下载
+	获取javaWeb  项目路径
+	1、JSP中获得当前应用的相对路径和绝对路径
+  		根目录所对应的绝对路径:request.getRequestURI()
+		 文件的绝对路径 　:application.getRealPath(request.getRequestURI());
+		 当前web应用的绝对路径 :application.getRealPath("/");
+		 取得请求文件的上层目录:new File(application.getRealPath(request.getRequestURI())).getParent()
+
+	2 Servlet中获得当前应用的相对路径和绝对路径
+		  根目录所对应的绝对路径:request.getServletPath();
+		  文件的绝对路径 :request.getSession().getServletContext().getRealPath(request.getRequestURI())   
+		  当前web应用的绝对路径 :servletConfig.getServletContext().getRealPath("/");
+		  (ServletContext对象获得几种方式：
+		  javax.servlet.http.HttpSession.getServletContext()
+		  javax.servlet.jsp.PageContext.getServletContext()
+		  javax.servlet.ServletConfig.getServletContext()
+		  )
+	3.Java类中获得绝对路径
+	　　	根据java.io.File的Doc文挡，可知: 默认情况下new File("/")代表的目录为：System.getProperty("user.dir")。
+		
+shiro
+	http://yingzhuo.iteye.com/blog/1709002

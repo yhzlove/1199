@@ -1,5 +1,11 @@
 package com.y.test;
-
+/**
+ * 原子计数器测试
+ * @author yanhz
+ * 2016年10月20日 上午9:08:13
+ * <P>Title:SynIncreaseInteger</P>
+ * <P>TODO</P>
+ */
 public class SynIncreaseInteger {  
     private int num = 0;  
     public int getIncreaseNum (){  

@@ -65,8 +65,8 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value="login",method=RequestMethod.GET)
-	//@SystemControllerLog(description = "登入用户")
-	@SystemLog(description = "登入用户")
+	@SystemControllerLog(description = "登入用户")
+	//@SystemLog(description = "登入用户")
 	public String login(){
 		
 		System.err.println("--------------login--------------");
